@@ -24,33 +24,44 @@ This project is a modular audio processing and retrieval system designed to hand
 
 project_root/
 
-├── uploaded_audios/ # Raw uploaded audio files
+├── app.py # Flask app entry point
 
-├── processed_audios/ # Normalized and converted .wav files
+├── templates/
 
-├── transcripts/ # Transcribed text in JSON format
+│ └── index.html # UI for upload & search
 
-├── metadata/ # Metadata including tags, duration, etc.
+├── static/ # CSS, JS, icons (if any)
 
-├── app.py # Main pipeline execution script
+├── uploaded_audios/ # Raw audio uploads
 
-├── requirements.txt # Python dependencies
+├── processed_audios/ # Normalized .wav files
 
-└── README.md # Project description and usage
+├── transcripts/ # Transcribed text
+
+├── metadata/ # Audio metadata (tags, duration, etc.)
 
 
 ## Install dependencies:
 
-pip install -r requirements.txt
-
-
-## 🧪 How to Use
-
-Place your audio files in uploaded_audios/.
+- pip install -r requirements.txt
 
 ## Run the pipeline:
 
-python app.py
+- python app.py
+
+Then open http://127.0.0.1:5000 in your browser.
+
+## 💡 How It Works
+
+- Upload your audio file via the UI.
+
+- Audio is converted to .wav using pydub.
+
+- Speech is transcribed using Whisper.
+
+- Audio is tagged using the PANNs Cnn14 model.
+
+- Metadata is saved and used for future searches.
 
 ## Outputs:
 
@@ -64,20 +75,18 @@ Metadata with tags → metadata/
 
 You can write search utilities to:
 
-Match keywords from the transcript
+- Match keywords from the transcript
 
-Match PANN tags such as "speech", "dog barking", "applause", etc.
+- Match PANN tags such as "speech", "dog barking", "applause", etc.
 
 ## 🧠 Models Used
 
-Whisper: For speech transcription
+- Whisper: For speech transcription
 
-PANNs (Cnn14): For audio tagging
+- PANNs (Cnn14): For audio tagging
 
 ## 📌 TODO
 
- Add web interface
+ - Support session-based refinement search
 
- Support session-based refinement search
-
- Integrate vector-based semantic search
+ - Integrate vector-based semantic search
