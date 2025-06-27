@@ -1,0 +1,31 @@
+# Core deep learning libraries
+torch==2.2.2
+torchaudio==2.2.2
+
+# Transformers and HuggingFace ecosystem
+transformers==4.38.2
+sentence-transformers==2.2.2
+huggingface-hub==0.20.3
+accelerate==0.27.2
+
+# Audio processing
+whisper
+pydub
+librosa
+
+# NLP tools
+spacy
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+
+# Audio tagging
+panns-inference
+
+# Topic modeling
+bertopic
+umap-learn
+
+# Exact numpy version
+numpy==1.26.4
+
+# Flask web framework
+flask
