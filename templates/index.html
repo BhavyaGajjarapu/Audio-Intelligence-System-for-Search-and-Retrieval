@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Audio Search | UNNANU.AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="branding">
+        <span class="company-name">UNNANU.AI</span>
+    </div>
+    <div class="container">
+        <h1>Upload & Search Audios</h1>
+        {% if message %}
+            <div class="info">{{ message }}</div>
+        {% endif %}
+        <form id="audioForm" method="post" enctype="multipart/form-data" autocomplete="off">
+            <input type="file" name="audiofile" accept="audio/*">
+            <button type="submit">Upload</button>
+        </form>
+        <hr>
+        <form action="{{ url_for('search') }}" method="post" style="margin-bottom:24px;">
+            <input type="text" name="query" placeholder="Search by tag, transcript, emotion, entity..." value="{{ query }}" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if query %}
+            <h3>Available Audios ({{ results|length }})</h3>
+            <ul>
+                {% for audio in results %}
+                    <li>{{ audio.file_name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>Available Audios ({{ catalog|length }})</h3>
+            <ul>
+                {% for audio in catalog %}
+                    <li>{{ audio.file_name }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if query %}
+            <h2>Results for "{{ query }}"</h2>
+            {% if results %}
+                <div class="result-cards">
+                {% for item in results %}
+                    <div class="result-card">
+                        <h3>{{ item.file_name }}</h3>
+                        <p><strong>Matched:</strong> {{ item.matched }}</p>
+                        <p><strong>Tags:</strong> {{ item.tags|join(', ') }}</p>
+                        <p><strong>Transcript:</strong> {{ item.transcript }}</p>
+                        <p><strong>Emotion:</strong> {{ item.emotion }}</p>
+                        <p><strong>Entities:</strong>
+                            {% for ent, label in item.entities %}
+                                <span class="entity-label">{{ ent }} ({{ label }})</span>{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p style="color:#c00;font-weight:bold;">No audios found.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
